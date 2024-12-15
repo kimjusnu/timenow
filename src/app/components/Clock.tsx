@@ -19,7 +19,7 @@ const Clock = () => {
     // 별 생성 - 더 많은 별과 다양한 크기/투명도 추가
     useEffect(() => {
         const generateStars = () => {
-            const newStars = Array.from({ length: 400 }, (_, i) => ({
+            const newStars = Array.from({ length: 800 }, (_, i) => ({
                 id: i,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -71,6 +71,16 @@ const Clock = () => {
         }
     };
 
+    const formatDate = () => {
+        const options: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            weekday: "long",
+        };
+        return currentTime.toLocaleDateString("ko-KR", options);
+    };
+
     return (
         <div
             className="relative flex items-center justify-center min-h-screen 
@@ -112,6 +122,11 @@ const Clock = () => {
                 >
                     {formatTime()}
                 </h1>
+
+                {/* 날짜 표시 추가 */}
+                <p className="text-2xl font-light text-white/60 mt-4">
+                    {formatDate()}
+                </p>
 
                 <button
                     onClick={() => setIs24(!is24)}
