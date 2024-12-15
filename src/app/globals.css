@@ -1,9 +1,20 @@
-/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 별 반짝임 애니메이션 */
+@font-face {
+    font-family: "ChosunGu";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    font-family: "ChosunGu";
+}
+
+/* 나머지 스타일은 그대로 유지 */
 @keyframes twinkle {
     0%,
     100% {
