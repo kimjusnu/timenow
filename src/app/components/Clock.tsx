@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 
 const Clock = () => {
     const [currentTime, setCurrentTime] = useState<Date>(new Date());
-    const [is24, setIs24] = useState<boolean>(true);
+    // 로컬스토리지 구현
+    const [is24, setIs24] = useState<boolean>(() => {
+        if (typeof window !== "undefined") {
+            const saved = localStorage.getItem("timeFormat");
+            return saved ? saved === "24" : true;
+        }
+        return true;
+    });
     const [stars, setStars] = useState<
         {
             id: number;
@@ -81,6 +88,13 @@ const Clock = () => {
         return currentTime.toLocaleDateString("ko-KR", options);
     };
 
+    const toggleTimeFormat = () => {
+        setIs24(prev => {
+            const newValue = !prev;
+            localStorage.setItem("timeFormat", newValue ? "24" : "12");
+            return newValue;
+        });
+    };
     return (
         <div
             className="relative flex items-center justify-center min-h-screen 
@@ -129,7 +143,7 @@ const Clock = () => {
                 </p>
 
                 <button
-                    onClick={() => setIs24(!is24)}
+                    onClick={toggleTimeFormat}
                     className="mt-10 px-7 py-3 rounded-xl
                     bg-white/5 backdrop-blur-md
                     border border-white/10
